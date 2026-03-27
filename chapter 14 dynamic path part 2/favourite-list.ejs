@@ -1,0 +1,55 @@
+
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/nav') %>
+  <main style="max-width: 1200px; margin: 40px auto; padding: 0 20px; font-family: sans-serif;">
+    
+    <h2 style="text-align: center; color: #ff385c; margin-bottom: 40px; font-size: 2.2rem; font-weight: 700;">
+      Here are your favourite:
+    </h2>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
+      <% if (favouriteList && favouriteList.length > 0) { %>
+        <% favouriteList.forEach(home => { %> 
+          
+          <div style="width: 320px; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid #f0f0f0; margin-bottom: 30px;">
+            
+            <div style="width: 100%; height: 230px;">
+              <img src="<%= home.photoUrl %>" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://via.placeholder.com/400x400?text=House'">
+            </div>
+
+            <div style="padding: 20px; text-align: left;">
+              
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <h3 style="margin: 0; font-size: 1.1rem; font-weight: 800; color: #222;"><%= home.houseName %></h3>
+                <span style="font-size: 14px; font-weight: bold;">
+                  <span style="color: #f9f233;">★</span> 
+                  <span style="color: black;"><%= home.rating || '5' %></span> </span>
+              </div>
+              
+              <p style="margin: 5px 0; color: #ff385c; font-size: 15px; font-weight: bold;">📍 <%= home.location %></p>
+
+              <div style="margin-top: 10px; margin-bottom: 20px;">
+                <span style="font-weight: 600; font-size: 18px; color: #ff385c;">₹<%= home.price %></span>
+                <span style="color: #ff385c; font-weight: bold; font-size: 16px;"> / Night</span>
+              </div>
+
+              <form action="/favourites/delete" method="POST" style="margin: 0;">
+                <input type="hidden" name="id" value="<%= home.id %>">
+                <button type="submit" style="width: 100%; padding: 12px; background: #58b2e7; color: white; border: none; border-radius: 10px; font-weight: bold; font-size: 14px; cursor: pointer;">
+                  Remove from Favourite
+                </button>
+              </form>
+
+            </div>
+          </div>
+
+        <% }) %>
+      <% } else { %>
+        <p style="text-align: center; font-size: 1.5rem; font-weight: 600; color: #717171; width: 100%;">
+          No favourites added yet!
+        </p>
+      <% } %>
+    </div>
+  </main>
+</body>

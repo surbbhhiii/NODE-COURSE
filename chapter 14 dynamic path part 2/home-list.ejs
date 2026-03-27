@@ -1,0 +1,66 @@
+
+
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/nav') %>
+  
+  <main style="max-width: 1200px; margin: 40px auto; padding: 0 20px; font-family: sans-serif;">
+    <h1 style="text-align: center; color: #ff385c; margin-bottom: 40px; font-weight: 600; font-size: 2.5rem;">
+      You are in home detail page:
+    </h1>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
+      <% if (registeredHomes && registeredHomes.length > 0) { %>
+        <% registeredHomes.forEach(home => { %>
+
+          <!-- --- Card Container --- -->
+          <div style="width: 320px; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid #f0f0f0; margin-bottom: 20px;">
+            
+            <!-- Image Section -->
+            <div style="width: 100%; height: 230px;">
+              <img src="<%= home.photoUrl %>" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://via.placeholder.com/400x400?text=House'">
+            </div>
+
+            <!-- Content Section -->
+            <div style="padding: 20px;">
+              <h3 style="margin: 0; font-size: 1.2rem; font-weight: 800; color: #222;"><%= home.houseName %></h3>
+              
+              <p style="margin: 5px 0; color: #ff385c; font-size: 15px; font-weight: 800;">📍<%= home.location %></p>
+              
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                <div style="font-size: 16px; font-weight: 800;">
+                   <span style="color: #ff385c;">Rs <%= home.price %></span>
+                   <span style="color: #ff385c;"> / Night</span>
+                </div>
+                <div style="font-weight: 700; font-size: 15px;">
+                   <span style="color: #f9f233;">★</span> 
+                   <span style="color: black;"><%= home.rating || '5' %></span>
+                </div>
+              </div>
+
+              <!-- Buttons Section -->
+              <div style="margin-top: 20px; display: flex; gap: 12px;">
+                <a href="/homes/<%= home.id %>" 
+                   style="flex: 1; text-align: center; text-decoration: none; padding: 10px; background: #94c4ec; color: #010c0e; border-radius: 8px; font-weight: 600; font-size: 14px; border: none;">
+                   Details
+                </a>
+
+                <button style="flex: 1; padding: 10px; background: #90ee90; color: #222; border: none; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer;">
+                  Book
+                </button>
+              </div>
+              
+              <!-- Hidden Delete Form (if needed later) -->
+              <form action="/host/delete-home" method="POST" style="margin: 0;">
+                <input type="hidden" name="homeId" value="<%= home.id %>">
+              </form>
+            </div>
+          </div>
+
+        <% }) %>
+      <% } else { %>
+        <p style="text-align: center; font-weight: 700; font-size: 1.5rem; color: #717171;">No homes found!</p>
+      <% } %>
+    </div>
+  </main>
+</body>

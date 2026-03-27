@@ -1,0 +1,58 @@
+
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/nav') %>
+
+  <main style="max-width: 1200px; margin: 40px auto; padding: 0 20px; font-family: sans-serif;">
+    <h2 style="text-align: center; color: #ff385c; margin-bottom: 40px; font-size: 2.2rem; font-weight: 600;">
+      Welcome to airbnb index page:
+    </h2>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 25px; justify-content: center;">
+      <% if (registeredHomes.length > 0) { %>
+        <% registeredHomes.forEach(home => { %> 
+
+          <div style="width: 320px; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid #f0f0f0; margin-bottom: 30px;">
+            
+            <div style="position: relative; width: 100%; height: 250px;">
+              <img src="<%= home.photoUrl %>" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://via.placeholder.com/400x400?text=House'">
+              
+              <form action="/favourites" method="POST" style="position: absolute; top: 15px; right: 15px;">
+                <input type="hidden" name="id" value="<%= home.id %>">
+                <button type="submit" style="background: rgba(255,255,255,0.9); border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; color: #ff385c; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">❤</button>
+              </form>
+            </div>
+
+            <div style="padding: 15px 20px 20px 20px; text-align: left;">
+              
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                <h3 style="margin: 0; font-size: 18px; font-weight: 800; color: #333;"><%= home.houseName %></h3>
+                <span style="font-size: 14px; font-weight: bold;">
+                  <span style="color: #ffce3d;">★</span> 
+                  <span style="color: black;"><%= home.rating || '5' %></span> </span>
+              </div>
+
+              <p style="margin: 0; color: #ff385c; font-size: 14px; font-weight: bolder;">📍 <%= home.location %></p>
+
+              <div style="margin-top: 10px; margin-bottom: 15px;">
+                <span style="font-weight: 600; font-size: 16px; color: #ff385c;">Rs <%= home.price %></span>
+                <span style="color: #ff385c; font-weight: bolder; font-size: 14px;"> / Night</span>
+              </div>
+
+              <div style="display: flex; gap: 10px;">
+                <button style="flex: 1.5; padding: 12px; background: #ff385c; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 15px;">Book</button>
+                
+                <form action="/host/delete-home" method="POST" style="flex: 1;">
+                   <input type="hidden" name="homeId" value="<%= home.id %>">
+                   <button type="submit" style="width: 100%; padding: 12px; background: #58b2e7; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 15px;">Delete</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+      <% } else { %>
+        <p style="text-align: center; width: 100%; font-size: 1.2rem; color: #717171;">No homes found.</p>
+      <% } %>
+    </div>
+  </main>
+</body>

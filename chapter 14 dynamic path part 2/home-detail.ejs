@@ -1,0 +1,120 @@
+<!--<%- include('../partials/head') %>
+</head>
+<body>
+  <%- include('../partials/nav') %>
+  <main class="container mx-auto bg-white shadow-lg rounded-lg p-8 mt-10 max-w-6xl">
+    <h2 class="text-3xl text-red-500 font-bold text-center mb-6">
+    You are in home detail page:
+    </h2>
+          <div style="width: 300px; margin-bottom: 20px;">
+            <div style="width: 100%; height: 280px; border-radius: 15px; overflow: hidden; margin-bottom: 12px;">
+              <img src="<%= home.photoUrl %>" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div style="display: flex; justify-content: space-between; font-weight: 600;">
+              <span><%= home.houseName %></span>
+
+             <span style=" color: yellow; font-size: 14px;">★ <%= home.rating || '5' %></span>
+
+            </div>
+            <p style="margin: 3px 0; font-weight:bold; color: #575253;"><%= home.location %></p>
+            
+            <p style="margin: 0;"><span style=" color:red; font-weight: 600;">₹<%= home.price %></span>
+              <span style="color: #ff385c; font-weight:bold;">Night</span>
+
+            <div style="margin-top: 15px; display: flex; gap: 10px;">
+              <button style="flex: 2; padding: 10px; background: #53e99c; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Book </button>
+              
+              <form action="/favourites/delete" method="POST" style="flex: 1;">
+                 <input type="hidden" name="id" value="<%= home.id %>">
+                <!--<button type="submit" style="width: 100%; padding: 10px; background: white; border: 1px solid #ddd; border-radius: 8px; font-weight: 600;">Delete</button>-->
+<!--</form>
+            </div>
+          </div>
+  </main>
+</body>-->
+
+
+
+<%- include('../partials/head') %>
+<body>
+<%- include('../partials/nav') %>
+
+<main style="max-width: 1000px; margin: 40px auto; font-family: sans-serif;">
+
+  <h2 style="text-align:center; font-weight:bolder; color:#ff385c; margin-bottom:30px;">
+    Details of
+  </h2>
+
+  <% if (home) { %>
+
+    <div style="
+      display: flex;
+      gap: 30px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      align-items: center;
+    ">
+
+      <!-- LEFT IMAGE -->
+      <div style="flex: 1;">
+        <img src="<%= home.photoUrl %>" 
+             style="width:100%; height:300px; object-fit:cover; border-radius:10px;">
+      </div>
+
+      <!-- RIGHT DETAILS -->
+      <div style="flex: 1;">
+
+        <h3 style="margin-bottom:15px; font-weight: bold;">Description</h3>
+        <p style="color:#555;">Beautiful home for stay</p>
+
+        <hr>
+
+        <p><strong>Location</strong><br>
+          <span style="color:#777;"><%= home.location %></span>
+        </p>
+
+        <hr>
+
+        <p><strong>Price</strong><br>
+          <span style="color:green; font-weight:bold;">
+            ₹<%= home.price %>/night
+          </span>
+        </p>
+
+        <hr>
+
+        <p><strong>Rating</strong><br>
+          ⭐ <%= home.rating || '4' %> / 5
+        </p>
+
+
+<div style="margin-top:20px;">
+  <form action="/favourites" method="POST">
+    <input type="hidden" name="id" value="<%= home.id %>">
+    <button style="
+      padding:10px 20px;
+      background:#ff385c;
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+    ">
+      Add to Favourite ❤️
+    </button>
+  </form>
+</div>
+
+      </div>
+
+    </div>
+
+  <% } else { %>
+
+    <h2 style="text-align:center;">Home not found ❌</h2>
+
+  <% } %>
+
+</main>
+</body>
