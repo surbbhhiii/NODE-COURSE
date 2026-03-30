@@ -1,0 +1,50 @@
+<%- include('../partials/head') %>
+<body>
+  <%- include('../partials/nav') %>
+
+  <main style="max-width: 1200px; margin: 40px auto; padding: 0 20px; font-family: sans-serif;">
+    <h2 style="text-align: center; color: red; margin-bottom: 40px; font-size: 2.2rem; font-weight: bold;">
+      Welcome to airbnb index page:
+    </h2>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 25px; justify-content: center;">
+      <% if (registeredHomes && registeredHomes.length > 0) { %>
+        <% registeredHomes.forEach(home => { %> 
+          <div style="width: 320px; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); border: 1px solid #eee; transition: 0.3s;">
+            
+            <img src="<%= home.photoUrl %>" style="width: 100%; height: 220px; object-fit: cover;">
+            
+            <div style="padding: 18px;">
+              <h3 style="margin: 0 0 9px 0; font-weight: 800; color: #222;"><%= home.houseName %></h3>
+              
+              <p style="margin: 0 0 10px 0; color: red; font-weight: 900;">📍 <%= home.location %></p>
+              
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <p style="margin: 0; color: #ff385c; font-weight: bold; font-size: 1.15rem;">
+                  Rs <%= home.price %> / Night
+                </p>
+                <span style="font-size: 0.95rem; color: #222; display: flex; align-items: center; gap: 4px;">
+                  <span style="color: #f4c150;">★</span> <%= home.rating || '4.5' %>
+                </span>
+              </div>
+
+              <div style="display: flex; gap: 10px;">
+                <a href="/homes/<%= home._id.toString() %>" style="flex: 1; text-align: center; background-color: #a0c4ff; color: #222; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">
+                  Details
+                </a>
+
+                <a href="/homes/<%= home._id.toString() %>" style="flex: 1; text-align: center; background-color: #4bfc9b; color: #222; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">
+                  Book
+                </a>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <div style="text-align: center; width: 100%; margin-top: 50px;">
+          <p style="font-size: 1.2rem; color: #666;">No homes found. Start by adding one!</p>
+        </div>
+      <% } %>
+    </div>
+  </main>
+</body>

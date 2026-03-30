@@ -1,0 +1,84 @@
+<%- include('../partials/head') %>
+<body>
+<%- include('../partials/nav') %>
+
+<main class="container mx-auto bg-white shadow-lg rounded-lg p-8 mt-10 max-w-6xl">
+  <h2 class="text-3xl text-red-500 font-bold text-center mb-6">
+    Details of <%= home.houseName %>
+  </h2>
+
+  <% if (home) { %>
+    <div style="
+      display: flex;
+      gap: 30px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      align-items: center;
+      flex-wrap: wrap; /* मोबाइल के लिए ताकि नीचे आ जाए */
+    ">
+
+      <div style="flex: 1; min-width: 300px;">
+        <img src="<%= home.photoUrl %>" 
+             style="width:100%; height:400px; object-fit:cover; border-radius:10px;"
+             onerror="this.src='https://via.placeholder.com/600x400?text=No+Image'">
+      </div>
+
+      <div style="flex: 1; min-width: 300px;">
+        <h3 style="margin-bottom:10px; font-weight: bold; font-size: 1.5rem;">Description</h3>
+        <p style="color:#555; margin-bottom: 15px;">
+          <%= home.description || 'A beautiful place for a comfortable stay.' %>
+        </p>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+
+        <p><strong>Location</strong><br>
+          <span style="color:#777; font-size: 1.1rem;">📍 <%= home.location %></span>
+        </p>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+
+        <p><strong>Price</strong><br>
+          <span style="color:#ff385c; font-weight:bold; font-size: 1.3rem;">
+            ₹<%= home.price %> / night
+          </span>
+        </p>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+
+        <p><strong>Rating</strong><br>
+          <span style="font-size: 1.1rem;">⭐ <%= home.rating || '4.5' %> / 5</span>
+        </p>
+
+        <div style="margin-top:25px;">
+          <form action="/favourites" method="POST">
+            <input type="hidden" name="id" value="<%= home._id.toString() %>">
+            <button style="
+              width: 100%;
+              padding: 12px 20px;
+              background:#ff385c;
+              color:white;
+              border:none;
+              border-radius:8px;
+              cursor:pointer;
+              font-weight: bold;
+              font-size: 1rem;
+              transition: 0.3s;
+            " onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+              Add to Favourite ❤️
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  <% } else { %>
+    <div style="text-align:center; padding: 50px;">
+      <h2 style="color: #666;">Home not found ❌</h2>
+      <a href="/homes" style="color: #ff385c; text-decoration: underline;">Back to List</a>
+    </div>
+  <% } %>
+</main>
+
+</body>
